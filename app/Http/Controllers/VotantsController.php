@@ -84,10 +84,10 @@ class VotantsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Poblacion $poblacion, $id) {
-        $task->delete();
+    public function destroy(Poblacion $poblacion, Votant $votant) {
+        $votant->delete();
  
-	return Redirect::route('projects.show', $project->slug)->with('message', 'Task deleted.');
+	return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'votant deleted.');
     }
 
 }
