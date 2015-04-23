@@ -11,7 +11,7 @@
 @else
 <div class="form-group">
     {!! Form::label('dni', 'DNI:') !!}
-    {!! Form::text('dni') !!}
+    {!! Form::text('dni',,array("min" => "9", "max" => "9") !!}
 </div>
 @endif
 <div class="form-group">

@@ -11,7 +11,10 @@ use Illuminate\Http\Request;
 
 class PoblacionsController extends Controller {
     
-    protected $guarded = [];
+    protected $rules = [
+		'name' => ['required', 'min:3'],
+		'habitants' => ['required', 'numeric', 'min:0'],
+	];
 
     /**
      * Display a listing of the resource.

@@ -11,6 +11,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class VotantsController extends Controller {
+    
+    protected $rules = [
+		'name' => ['required', 'min:2'],
+		'dni' => ['required', 'alpha_num', 'size:9'],
+                'dataNaixement' => ['required', 'date'],
+                
+	];
 
     /**
      * Display a listing of the resource.
