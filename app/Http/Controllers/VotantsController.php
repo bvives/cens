@@ -41,7 +41,7 @@ class VotantsController extends Controller {
         $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
         Votant::create($input);
 
-        return Redirect::route('Poblacions.show', $poblacio->slug)->with('message', 'Votant created.');
+        return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'Votant created.');
     }
 
     /**
@@ -85,7 +85,9 @@ class VotantsController extends Controller {
      * @return Response
      */
     public function destroy(Poblacion $poblacion, $id) {
-        //
+        $task->delete();
+ 
+	return Redirect::route('projects.show', $project->slug)->with('message', 'Task deleted.');
     }
 
 }

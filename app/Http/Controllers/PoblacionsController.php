@@ -72,7 +72,12 @@ class PoblacionsController extends Controller {
      * @return Response
      */
     public function update(Poblacion $poblacion) {
-        //
+        $input = array_except(Input::all(), '_method');
+        $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
+	$poblacion->update($input);
+ 
+	return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'Poblacion updated.');
+
     }
 
     /**
@@ -82,7 +87,8 @@ class PoblacionsController extends Controller {
      * @return Response
      */
     public function destroy(Poblacion $poblacion) {
-        //
+        $poblacion->delete();
+        return Redirect::route('poblacions.index')->with('message', 'Poblacion deleted.');
     }
 
 }

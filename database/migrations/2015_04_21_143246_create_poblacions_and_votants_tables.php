@@ -16,7 +16,7 @@ class CreatePoblacionsAndVotantsTables extends Migration {
 		{
 			$table->increments('id');
                         $table->string('name')->default('');
-			$table->string('slug')->default('');
+			$table->string('slug')->unique();
                         $table->integer('habitants')->default(0);
 			$table->timestamps();
 		});
@@ -24,10 +24,10 @@ class CreatePoblacionsAndVotantsTables extends Migration {
                 Schema::create('votants', function(Blueprint $table) {
 			$table->increments('id');
                         $table->string('name')->default('');
-			$table->string('slug')->default('');
+			$table->string('slug')->unique();
 			$table->integer('poblacion_id')->unsigned()->default(0);
 			$table->foreign('poblacion_id')->references('id')->on('poblacions')->onDelete('cascade');
-                        $table->string('dni', 9)->default('');			
+                        $table->string('dni', 9)->unique();			
                         $table->date('dataNaixement');
 			$table->timestamps();
 		});

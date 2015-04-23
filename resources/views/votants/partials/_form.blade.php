@@ -16,7 +16,7 @@
 @endif
 <div class="form-group">
     {!! Form::label('dataNaixement', 'Data de naixament:') !!}
-    {!! Form::text('dataNaixement') !!}
+    {!! Form::date('dataNaixement') !!}
 </div>
 
  

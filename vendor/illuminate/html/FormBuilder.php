@@ -272,6 +272,19 @@ class FormBuilder {
 	{
 		return $this->input('number', $name, $value, $options);
 	}
+        
+        /**
+         * 
+         * 
+         * @param type $name
+         * @param type $value
+         * @param type $options
+         * @return type
+         */
+        public function date($name, $value = null, $options = array())
+	{
+		return $this->input('date', $name, $value, $options);
+	}
 
 	/**
 	 * Create a password input field.

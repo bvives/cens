@@ -23,7 +23,7 @@
 <div class="form-group">
     <?php echo Form::label('dataNaixement', 'Data de naixament:'); ?>
 
-    <?php echo Form::text('dataNaixement'); ?>
+    <?php echo Form::date('dataNaixement'); ?>
 
 </div>
 
