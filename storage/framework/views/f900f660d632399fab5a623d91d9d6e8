@@ -1,0 +1,33 @@
+<!-- /resources/views/poblacions/index.blade.php -->
+
+ 
+<?php $__env->startSection('content'); ?>
+    <h2>Poblacions</h2>
+ 
+    <?php if( !$poblacions->count() ): ?>
+        You have no poblacions
+    <?php else: ?>
+        <ul>
+            <?php foreach( $poblacions as $poblacion ): ?>
+                <li>
+                    <?php echo Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('poblacions.destroy', $poblacion->slug))); ?>
+
+                        <a href="<?php echo e(route('poblacions.show', $poblacion->slug)); ?>"><?php echo e($poblacion->name); ?></a>
+                        (
+                            <?php echo link_to_route('poblacions.edit', 'Edit', array($poblacion->slug), array('class' => 'btn btn-info')); ?>,
+                            <?php echo Form::submit('Delete', array('class' => 'btn btn-danger')); ?>
+
+                        )
+                    <?php echo Form::close(); ?>
+
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+ 
+    <p>
+        <?php echo link_to_route('poblacions.create', 'Create Poblacion'); ?>
+
+    </p>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

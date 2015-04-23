@@ -1,0 +1,34 @@
+<div class="form-group">
+    <?php echo Form::label('name', 'Nom:'); ?>
+
+    <?php echo Form::text('name'); ?>
+
+</div>
+
+<?php if(isset($votant)): ?>
+<div class="form-group">
+    <?php echo Form::label('dni', 'DNI:'); ?>
+
+    <?php echo Form::text('dni',$votant->dni,array("readonly")); ?>
+
+</div>
+<?php else: ?>
+<div class="form-group">
+    <?php echo Form::label('dni', 'DNI:'); ?>
+
+    <?php echo Form::text('dni'); ?>
+
+</div>
+<?php endif; ?>
+<div class="form-group">
+    <?php echo Form::label('dataNaixement', 'Data de naixament:'); ?>
+
+    <?php echo Form::text('dataNaixement'); ?>
+
+</div>
+
+ 
+<div class="form-group">
+    <?php echo Form::submit($submit_text); ?>
+
+</div>
