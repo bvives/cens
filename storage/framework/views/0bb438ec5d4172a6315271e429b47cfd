@@ -59,6 +59,13 @@
 			<p><?php echo e(Session::get('message')); ?></p>
 		</div>
 	<?php endif; ?>
+        <?php if($errors->any()): ?>
+		<div class='flash alert-danger'>
+			<?php foreach( $errors->all() as $error ): ?>
+				<p><?php echo e($error); ?></p>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
  
 	<?php echo $__env->yieldContent('content'); ?>
 </div>

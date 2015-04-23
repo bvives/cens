@@ -10,11 +10,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PoblacionsController extends Controller {
-    
+
     protected $rules = [
-		'name' => ['required', 'min:3'],
-		'habitants' => ['required', 'numeric', 'min:0'],
-	];
+        'name' => ['required', 'min:3'],
+        'habitants' => ['required', 'numeric', 'min:0'],
+    ];
 
     /**
      * Display a listing of the resource.
@@ -36,13 +36,15 @@ class PoblacionsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * 
+     * @param Request $request
+     * @return type
      */
-    public function store() {
+    public function store(Request $request) {
+        $this->validate($request, $this->rules);
+        
         $input = Input::all();
-        $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
+        $input['slug'] = str_replace(" ", "-", (strtolower($input['name'])));
         Poblacion::create($input);
 
         return Redirect::route('poblacions.index')->with('message', 'poblacio created');
@@ -72,15 +74,18 @@ class PoblacionsController extends Controller {
      * Update the specified resource in storage.
      *
      * @param  int  $id
+     * @param \Illuminate\Http\Request $request
      * @return Response
      */
-    public function update(Poblacion $poblacion) {
+    public function update(Poblacion $poblacion, Request $request) {
+        
+        $this->validate($request, $this->rules);
+        
         $input = array_except(Input::all(), '_method');
-        $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
-	$poblacion->update($input);
- 
-	return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'Poblacion updated.');
+        $input['slug'] = str_replace(" ", "-", (strtolower($input['name'])));
+        $poblacion->update($input);
 
+        return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'Poblacion updated.');
     }
 
     /**

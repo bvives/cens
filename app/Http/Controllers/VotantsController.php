@@ -11,13 +11,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class VotantsController extends Controller {
-    
+
     protected $rules = [
-		'name' => ['required', 'min:2'],
-		'dni' => ['required', 'alpha_num', 'size:9'],
-                'dataNaixement' => ['required', 'date'],
-                
-	];
+        'name' => ['required', 'min:2'],
+        'dni' => ['required', 'alpha_num', 'size:9', 'regex:/^[0-9]{8}[A-Z]$/'],
+        'dataNaixement' => ['required', 'date'],
+    ];
 
     /**
      * Display a listing of the resource.
@@ -38,14 +37,18 @@ class VotantsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
+     * 
+     * @param Poblacion $poblacion
+     * @param Request $request
+     * @return type
      */
-    public function store(Poblacion $poblacion) {
+    public function store(Poblacion $poblacion, Request $request) {
+
+        $this->validate($request, $this->rules);
+
         $input = Input::all();
         $input['poblacion_id'] = $poblacion->id;
-        $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
+        $input['slug'] = str_replace(" ", "-", (strtolower($input['name'])));
         Votant::create($input);
 
         return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'Votant created.');
@@ -72,17 +75,21 @@ class VotantsController extends Controller {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * 
+     * @param Poblacion $poblacion
+     * @param Votant $votant
+     * @param Request $request
+     * @return type
      */
-    public function update(Poblacion $poblacion, Votant $votant) {
+    public function update(Poblacion $poblacion, Votant $votant, Request $request) {
+
+        $this->validate($request, $this->rules);
+
         $input = array_except(Input::all(), array('_method', 'dni'));
-        $input['slug']=  str_replace(" ", "-", (strtolower($input['name'])));
-	$votant->update($input);
- 
-	return Redirect::route('poblacions.votants.show', [$poblacion->slug, $votant->slug])->with('message', 'Votant updated.');
+        $input['slug'] = str_replace(" ", "-", (strtolower($input['name'])));
+        $votant->update($input);
+
+        return Redirect::route('poblacions.votants.show', [$poblacion->slug, $votant->slug])->with('message', 'Votant updated.');
     }
 
     /**
@@ -93,8 +100,8 @@ class VotantsController extends Controller {
      */
     public function destroy(Poblacion $poblacion, Votant $votant) {
         $votant->delete();
- 
-	return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'votant deleted.');
+
+        return Redirect::route('poblacions.show', $poblacion->slug)->with('message', 'votant deleted.');
     }
 
 }
