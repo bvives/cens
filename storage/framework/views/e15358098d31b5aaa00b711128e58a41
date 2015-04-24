@@ -8,5 +8,9 @@
  
 <p>Dni:<?php echo e($votant->dni); ?> data de naixament:<?php echo e($votant->dataNaixement); ?>
 
+     <p>
+        <?php echo link_to_route('poblacions.index', 'Back to Poblacions'); ?>
+
+    </p>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
